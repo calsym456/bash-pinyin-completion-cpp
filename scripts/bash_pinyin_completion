@@ -71,7 +71,7 @@ _pinyin_completion() {
     IFS=$'\n'
     pinyin_matched=$(bash-pinyin-completion "$cur" "$compgen_opts")
     read -ra pinyin_matched <<< "$pinyin_matched"
-    IFS=OLDIFS
+    IFS=$OLDIFS
 
     # merge result
     local -a old_candidates=("${COMPREPLY[@]}")
