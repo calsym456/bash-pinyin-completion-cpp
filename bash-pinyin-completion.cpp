@@ -138,19 +138,13 @@ int main(int argc, char **argv) {
     // Call compgen at that dir
     auto compreply = split_string(run_command("/usr/bin/env bash -c \"compgen " + compgen_opts + "\""), '\n');
     for (auto reply : compreply) {
-        if (reply.compare(0, final.size(), final) == 0) {
-            for (auto substr : split) {
-                cout << substr << "/";
-            }
-            cout << reply << endl;
-            continue;
-        }
-        if (string_pinyin(reply).compare(0, pinyin.size(), pinyin) == 0) {
+        auto reply_pinyin = string_pinyin(reply);
+        if (reply_pinyin.compare(0, pinyin.size(), pinyin) == 0) {
             for (auto substr : split) {
                 cout << substr << "/";
             }
             cout << reply;
-            if (filesystem::is_directory(filesystem::path(reply))) {
+            if (filesystem::is_directory(filesystem::path(reply)) && reply != reply_pinyin) {
                 cout << "/" << endl;
             } else {
                 cout << endl;
