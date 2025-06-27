@@ -73,7 +73,7 @@ unordered_map<string, string> read_dict() {
         if (in.eof()) break;
         in.get();
         if (in.eof()) break;
-
+        in.close();
     }
     return dict;
 }
